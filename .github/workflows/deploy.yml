@@ -1,0 +1,31 @@
+name: Go CI/CD
+
+on:
+  push:
+    branches: [ release, main ]
+  pull_request:
+    branches: [ release, main ]
+
+jobs:
+  # CI: テストを実行するジョブ
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: '1.21'
+    - name: Run tests
+      run: go test -v ./...
+
+  # CD: Renderへのデプロイをトリガーするジョブ
+  deploy:
+    # このジョブは、mainブランチへのpushイベントの時だけ実行する
+    if: github.event_name == 'pull_request'
+    # 'test' ジョブが成功した後に実行する
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Render Deploy
+        run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
