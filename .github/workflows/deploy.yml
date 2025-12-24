@@ -2,9 +2,9 @@ name: Go CI/CD
 
 on:
   push:
-    branches: [ main ]
+    branches: [ release, main ]
   pull_request:
-    branches: [ main ]
+    branches: [ release, main ]
 
 jobs:
   # CI: テストを実行するジョブ
@@ -22,7 +22,7 @@ jobs:
   # CD: Renderへのデプロイをトリガーするジョブ
   deploy:
     # このジョブは、mainブランチへのpushイベントの時だけ実行する
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/release'
     # 'test' ジョブが成功した後に実行する
     needs: test
     runs-on: ubuntu-latest
