@@ -22,7 +22,7 @@ jobs:
   # CD: Renderへのデプロイをトリガーするジョブ
   deploy:
     # このジョブは、mainブランチへのpushイベントの時だけ実行する
-    if: github.event_name == 'pull_request' && github.ref == 'refs/heads/release'
+    if: github.event_name == 'pull_request'
     # 'test' ジョブが成功した後に実行する
     needs: test
     runs-on: ubuntu-latest
