@@ -12,7 +12,7 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/", helloHandler)
+	http.HandleFunc("/hello", helloHandler)
 
 	// Renderから提供されるPORT環境変数を取得
 	port := os.Getenv("PORT")

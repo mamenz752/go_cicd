@@ -8,7 +8,7 @@ import (
 
 func TestHelloHandler(t *testing.T) {
 	// 1. テスト用のリクエストを作成
-	req, err := http.NewRequest("GET", "/", nil)
+	req, err := http.NewRequest("GET", "/hello", nil)
 	if err != nil {
 		t.Fatal(err)
 	}
